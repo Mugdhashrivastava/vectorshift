@@ -1,0 +1,72 @@
+/* src/styles/theme.css */
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #fefefe;
+}
+
+.node-box {
+  background-color: #ffffff;
+  border: 2px dashed #cddafd;
+  border-radius: 12px;
+  padding: 12px;
+  width: 220px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.node-box:hover {
+  transform: scale(1.01);
+}
+
+.node-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #6c6f93;
+  margin-bottom: 8px;
+}
+
+.node-content input,
+.node-content select {
+  width: 90%;
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #d8d8f0;
+  border-radius: 6px;
+  background-color: #f9f9ff;
+  font-family: inherit;
+}
+
+.toolbar {
+  background-color: #fcd5ce;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 10px;
+  display: flex;
+  gap: 12px;
+  font-weight: bold;
+}
+
+.toolbar-item {
+  background-color: #d4f1f4;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: grab;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.submit-button {
+  background-color: #cddafd;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  margin: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #b8cffe;
+}

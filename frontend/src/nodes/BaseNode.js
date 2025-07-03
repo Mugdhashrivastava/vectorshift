@@ -1,20 +1,19 @@
-// BaseNode.js
 import React from 'react';
 import { Handle, Position } from 'reactflow';
+import '../styles/theme.css';
 
 const BaseNode = ({
   id,
   title,
-  width = 200,
-  height = 80,
-  borderColor = 'black',
   inputs = [],
   outputs = [],
   children
 }) => {
   return (
-    <div style={{ width, height, border: `1px solid ${borderColor}`, padding: '4px', borderRadius: '4px' }}>
-      {/* Input Handles */}
+    <div className="node-box">
+      <div className="node-title">{title}</div>
+      <div className="node-content">{children}</div>
+
       {inputs.map((input, index) => (
         <Handle
           key={index}
@@ -25,17 +24,6 @@ const BaseNode = ({
         />
       ))}
 
-      {/* Title */}
-      <div>
-        <strong>{title}</strong>
-      </div>
-
-      {/* Content */}
-      <div>
-        {children}
-      </div>
-
-      {/* Output Handles */}
       {outputs.map((output, index) => (
         <Handle
           key={index}
