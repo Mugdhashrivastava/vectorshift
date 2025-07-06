@@ -9,7 +9,7 @@ import { shallow } from 'zustand/shallow';
 import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
-import { TextNode } from './nodes/textNode';
+import  TextNode  from './nodes/textNode';
 import DateNode from './nodes/dateNode';
 import ImageNode from './nodes/imageNode';
 import MathNode from './nodes/mathNode';
@@ -26,7 +26,7 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
-   date: DateNode,
+  date: DateNode,
   image: ImageNode,
   math: MathNode,
   boolean: BooleanNode,

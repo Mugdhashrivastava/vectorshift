@@ -1,69 +1,51 @@
-import { useState, useEffect, useRef } from 'react';
-import { Handle, Position } from 'reactflow';
-import '../styles/theme.css';
+import React, { useEffect, useRef, useState } from 'react';
+import BaseNode from './BaseNode';
 
-export const TextNode = ({ id, data }) => {
+const TextNode = ({ id, data }) => {
   const [currText, setCurrText] = useState(data?.text || '{{input}}');
-  const [variables, setVariables] = useState([]);
-  const textAreaRef = useRef(null);
+  const [dynamicInputs, setDynamicInputs] = useState([]);
+  const textareaRef = useRef(null);
 
-  // ✅ Update variables on text change
-  useEffect(() => {
-    const matches = [...currText.matchAll(/\{\{\s*(\w+)\s*\}\}/g)];
-    const vars = matches.map(match => match[1]);
-    setVariables(vars);
-  }, [currText]);
+  const handleTextChange = (e) => {
+    const value = e.target.value;
+    setCurrText(value);
 
-  // ✅ Auto-resize height
-  useEffect(() => {
-    if (textAreaRef.current) {
-      textAreaRef.current.style.height = 'auto';
-      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
+  };
+
+  useEffect(() => {
+    const matches = [...currText.matchAll(/{{\s*(\w+)\s*}}/g)].map(match => match[1]);
+    const uniqueInputs = [...new Set(matches)];
+
+    const inputs = uniqueInputs.map((input, index) => ({
+      id: input,
+      top: `${(index + 1) * 30}px`,
+    }));
+
+    setDynamicInputs(inputs);
   }, [currText]);
 
   return (
-    <div className="node-box">
-      <div className="node-title">💬 Text</div>
-      
-      {/* 🧠 Auto-growing textarea */}
+    <BaseNode
+      id={id}
+      title="Text Node"
+      inputs={dynamicInputs}
+      outputs={[{ id: 'output' }]}
+    >
       <textarea
-        ref={textAreaRef}
+        ref={textareaRef}
         value={currText}
-        onChange={(e) => setCurrText(e.target.value)}
-        className="textarea-node"
-        placeholder="Type text using {{variable}}"
+        onChange={handleTextChange}
         style={{
           width: '100%',
-          borderRadius: '6px',
-          padding: '8px',
-          resize: 'none',
-          fontFamily: 'inherit',
-          border: '1px solid #ddd'
         }}
+        placeholder="Type something like {{input}}..."
       />
-
-      {/* 🔌 Dynamic Handles for Variables */}
-      {variables.map((v, i) => (
-        <Handle
-          key={v}
-          type="target"
-          position={Position.Left}
-          id={`${id}-${v}`}
-          style={{
-            top: `${40 + i * 20}px`,
-            background: '#cddafd'
-          }}
-        />
-      ))}
-
-      {/* 📤 Output Handle */}
-      <Handle
-        type="source"
-        position={Position.Right}
-        id={`${id}-output`}
-        style={{ top: '50%', background: '#cddafd' }}
-      />
-    </div>
+    </BaseNode>
   );
 };
+
+export default TextNode;
